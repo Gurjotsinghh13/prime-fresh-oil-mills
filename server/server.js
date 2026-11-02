@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS configuration - allow localhost:8000 and standard origins
+// CORS configuration - support multiple origins from ALLOWED_ORIGIN (comma-separated) or environment defaults
 const allowedOrigins = [
   'http://localhost:8000',
   'http://127.0.0.1:8000',
@@ -18,16 +18,31 @@ const allowedOrigins = [
 ];
 
 if (process.env.ALLOWED_ORIGIN) {
-  allowedOrigins.push(process.env.ALLOWED_ORIGIN);
+  const envOrigins = process.env.ALLOWED_ORIGIN.split(',').map(o => o.trim()).filter(Boolean);
+  allowedOrigins.push(...envOrigins);
 }
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps, curl, or same-origin)
-    if (!origin || allowedOrigins.includes(origin) || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+    // Allow requests with no origin (like mobile apps, curl, server-to-server, or same-origin)
+    if (!origin) return callback(null, true);
+
+    const isExplicitlyAllowed = allowedOrigins.includes(origin);
+    const isLocalhost = origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:');
+
+    if (isExplicitlyAllowed || (!isProduction && isLocalhost)) {
       return callback(null, true);
     }
-    return callback(null, true); // Dev-friendly permissive CORS
+
+    if (isProduction) {
+      console.warn(`[CORS Blocked] Origin: ${origin}`);
+      return callback(new Error(`Origin ${origin} not allowed by CORS`));
+    }
+
+    // In dev mode, permit for ease of testing
+    return callback(null, true);
   },
   credentials: true,
   methods: ['GET', 'POST', 'OPTIONS'],
@@ -77,3 +92,4 @@ const server = app.listen(PORT, () => {
 });
 
 export default app;
+

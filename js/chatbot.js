@@ -6,11 +6,16 @@
 (() => {
   'use strict';
 
-  // Determine backend API URL dynamically:
-  // When running frontend on port 8000 (Python simple server) or 5500 (Live Server), proxy/connect to Express on port 3000
-  const API_URL = (window.location.port === '8000' || window.location.port === '5500' || window.location.port === '5000')
-    ? 'http://localhost:3000/api/chat'
-    : '/api/chat';
+  // Determine backend API URL:
+  // 1. If explicitly configured in window.PFOM.business.apiBaseUrl, use it (production standalone API service)
+  // 2. If running locally on development ports (8000, 5500, 5000), connect to local Express port 3000
+  // 3. Otherwise (production same-origin or reverse-proxy), use relative path '/api/chat'
+  const customBaseUrl = window.PFOM?.business?.apiBaseUrl;
+  const API_URL = customBaseUrl 
+    ? `${customBaseUrl.replace(/\/+$/, '')}/api/chat`
+    : (window.location.port === '8000' || window.location.port === '5500' || window.location.port === '5000')
+      ? 'http://localhost:3000/api/chat'
+      : '/api/chat';
   const MAX_HISTORY_MESSAGES = 10;
   const SALES_PHONE = '+91 90572 92529';
 
