@@ -142,6 +142,7 @@
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  scroll-behavior: smooth;
   padding: 17px 14px 12px;
   background: var(--pf-chat-cream);
   overscroll-behavior: contain;
@@ -149,25 +150,122 @@
 
 .pf-chat-message {
   width: fit-content;
-  max-width: 88%;
-  margin: 0 0 11px;
-  padding: 10px 12px;
+  max-width: 90%;
+  margin: 0 0 12px;
+  padding: 12px 14px;
   border: 1px solid var(--pf-chat-border);
-  border-radius: 13px 13px 13px 4px;
+  border-radius: 14px 14px 14px 4px;
   color: var(--pf-chat-ink);
   background: #fff;
-  font-size: 13px;
-  line-height: 1.5;
-  white-space: pre-wrap;
+  font-size: 13.5px;
+  line-height: 1.55;
   overflow-wrap: anywhere;
+  word-break: break-word;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .04);
+}
+
+/* Rich Markdown Typography Inside Chat Bubbles */
+.pf-chat-message p {
+  margin: 0 0 8px;
+}
+.pf-chat-message p:last-child {
+  margin-bottom: 0;
+}
+
+.pf-chat-message strong,
+.pf-chat-message b {
+  color: #0c1c13;
+  font-weight: 700;
+}
+
+.pf-chat-message h3,
+.pf-chat-message h4,
+.pf-chat-message h5 {
+  margin: 10px 0 6px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pf-chat-green);
+  line-height: 1.35;
+}
+.pf-chat-message h3:first-child,
+.pf-chat-message h4:first-child {
+  margin-top: 0;
+}
+
+.pf-chat-message ul,
+.pf-chat-message ol {
+  margin: 6px 0 10px 18px;
+  padding: 0;
+}
+.pf-chat-message ul {
+  list-style-type: disc;
+}
+.pf-chat-message ol {
+  list-style-type: decimal;
+}
+.pf-chat-message li {
+  margin-bottom: 5px;
+  padding-left: 2px;
+  line-height: 1.5;
+}
+.pf-chat-message li:last-child {
+  margin-bottom: 0;
+}
+
+.pf-chat-message hr {
+  margin: 10px 0;
+  border: 0;
+  border-top: 1px solid rgba(23, 61, 43, .12);
+}
+
+.pf-chat-message a {
+  color: var(--pf-chat-green);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color .15s ease;
+}
+.pf-chat-message a:hover {
+  color: #a07418;
+}
+
+/* Styled WhatsApp CTA pill in Assistant Bubble */
+.pf-chat-message .pf-chat-wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  color: #0c3319;
+  background: #e6f6ec;
+  border: 1px solid #94d3a9;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all .15s ease;
+}
+.pf-chat-message .pf-chat-wa-btn:hover {
+  background: #25d366;
+  color: #fff;
+  border-color: #25d366;
+  box-shadow: 0 2px 6px rgba(37, 211, 102, .3);
 }
 
 .pf-chat-message--user {
   margin-left: auto;
   border-color: var(--pf-chat-green);
-  border-radius: 13px 13px 4px 13px;
+  border-radius: 14px 14px 4px 14px;
   color: #fff;
   background: var(--pf-chat-green);
+  box-shadow: 0 2px 6px rgba(23, 61, 43, .15);
+}
+.pf-chat-message--user p {
+  color: #fff;
+}
+.pf-chat-message--user strong {
+  color: #fff;
 }
 
 .pf-chat-message--status {

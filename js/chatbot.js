@@ -39,30 +39,88 @@
     }
   }
 
-  function renderSafeContent(container, text) {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const parts = text.split(urlRegex);
-    parts.forEach(part => {
-      if (part.startsWith('http://') || part.startsWith('https://')) {
-        const a = document.createElement('a');
-        a.href = part;
-        a.textContent = part.includes('wa.me') ? 'Open WhatsApp Enquiry →' : part;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.style.color = '#e0aa32';
-        a.style.fontWeight = '700';
-        a.style.textDecoration = 'underline';
-        container.appendChild(a);
-      } else {
-        container.appendChild(document.createTextNode(part));
-      }
-    });
+  /**
+   * Safely parses Markdown and sanitizes HTML output using Marked + DOMPurify.
+   * Falls back to secure element building if vendor scripts are unavailable.
+   */
+  function renderSafeContent(container, text, isUser = false) {
+    // If it's a user message, render as pure text node to prevent any markup injection
+    if (isUser) {
+      container.textContent = text;
+      return;
+    }
+
+    const hasMarked = typeof window.marked !== 'undefined' && typeof window.marked.parse === 'function';
+    const hasPurify = typeof window.DOMPurify !== 'undefined' && typeof window.DOMPurify.sanitize === 'function';
+
+    if (hasMarked && hasPurify) {
+      // Configure marked
+      window.marked.setOptions({
+        gfm: true,
+        breaks: true
+      });
+
+      const rawHtml = window.marked.parse(text);
+
+      // DOMPurify sanitize configuration
+      const cleanHtml = window.DOMPurify.sanitize(rawHtml, {
+        ALLOWED_TAGS: [
+          'p', 'br', 'strong', 'b', 'em', 'i', 'ul', 'ol', 'li',
+          'h3', 'h4', 'h5', 'code', 'blockquote', 'hr', 'a', 'span'
+        ],
+        ALLOWED_ATTR: ['href', 'title', 'target', 'rel', 'class'],
+        ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i
+      });
+
+      container.innerHTML = cleanHtml;
+
+      // Enhance links: target="_blank", rel="noopener noreferrer", and WhatsApp button pill styling
+      const links = container.querySelectorAll('a');
+      links.forEach((a) => {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+        if (a.href.includes('wa.me')) {
+          a.classList.add('pf-chat-wa-btn');
+          if (!a.textContent.includes('WhatsApp')) {
+            a.textContent = 'Chat on WhatsApp →';
+          }
+        }
+      });
+    } else {
+      // Fallback parser without external dependencies: safe regex parsing
+      container.textContent = '';
+      const paragraphs = text.split(/\n{2,}/);
+      paragraphs.forEach((pText) => {
+        const p = document.createElement('p');
+        // Simple bold parser
+        const parts = pText.split(/(\*\*[^*]+\*\*|https?:\/\/[^\s]+)/g);
+        parts.forEach((part) => {
+          if (part.startsWith('**') && part.endsWith('**')) {
+            const strong = document.createElement('strong');
+            strong.textContent = part.slice(2, -2);
+            p.appendChild(strong);
+          } else if (part.startsWith('http://') || part.startsWith('https://')) {
+            const a = document.createElement('a');
+            a.href = part;
+            a.textContent = part.includes('wa.me') ? 'Chat on WhatsApp →' : part;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.classList.add('pf-chat-link');
+            p.appendChild(a);
+          } else {
+            p.appendChild(document.createTextNode(part));
+          }
+        });
+        container.appendChild(p);
+      });
+    }
   }
 
   function addMessage(text, kind) {
     const node = document.createElement('div');
+    const isUser = kind === 'user';
     node.className = `pf-chat-message pf-chat-message--${kind || 'assistant'}`;
-    renderSafeContent(node, text);
+    renderSafeContent(node, text, isUser);
     messages.appendChild(node);
     messages.scrollTop = messages.scrollHeight;
     return node;
@@ -133,7 +191,7 @@
     history = [];
     messages.innerHTML = `
       <div class="pf-chat-message pf-chat-message--assistant">
-        Hello! Welcome to Prime Fresh Oil Mills. I can help you explore our products, understand our offerings and connect with our sales team for bulk business enquiries. How can I assist you today?
+        <p>Hello! Welcome to <strong>Prime Fresh Oil Mills</strong>. I can assist you with our product catalog, custom yield calculations, and bulk quotations. How can I assist your business today?</p>
       </div>
     `;
     if (quickActions) {

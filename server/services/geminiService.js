@@ -21,7 +21,8 @@ function getAIClient() {
  */
 export async function generateChatResponse(message, history = []) {
   const ai = getAIClient();
-  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const primaryModel = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
+  const fallbackModels = ['gemini-3.5-flash', 'gemini-3.1-flash-lite', 'gemini-3-flash-preview', 'gemini-3.8-flash'];
   const systemInstruction = getSystemInstruction();
 
   // Map sliding window history to Gemini format
@@ -48,20 +49,31 @@ export async function generateChatResponse(message, history = []) {
     parts: [{ text: message.trim() }]
   });
 
-  const response = await ai.models.generateContent({
-    model,
-    contents,
-    config: {
-      systemInstruction,
-      temperature: 0.35,
-      maxOutputTokens: 900
-    }
-  });
+  const modelsToTry = [primaryModel, ...fallbackModels];
+  let lastError = null;
 
-  const replyText = response?.text;
-  if (typeof replyText !== 'string' || !replyText.trim()) {
-    throw new Error('Gemini model returned an empty reply.');
+  for (const modelToUse of modelsToTry) {
+    try {
+      const response = await ai.models.generateContent({
+        model: modelToUse,
+        contents,
+        config: {
+          systemInstruction,
+          temperature: 0.35,
+          maxOutputTokens: 900
+        }
+      });
+
+      const replyText = response?.text;
+      if (typeof replyText === 'string' && replyText.trim()) {
+        return replyText.trim();
+      }
+    } catch (err) {
+      console.warn(`[GeminiService] Model ${modelToUse} failed: ${err.message}. Trying next candidate if available...`);
+      lastError = err;
+    }
   }
 
-  return replyText.trim();
+  throw lastError || new Error('All candidate Gemini models failed to generate a response.');
 }
+
