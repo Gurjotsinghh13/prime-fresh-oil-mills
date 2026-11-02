@@ -14,7 +14,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=3">
+  <link rel="stylesheet" href="css/styles.css?v=4">
   <script type="application/ld+json" id="ld-json"></script>
 </head>
 
@@ -48,7 +48,7 @@
 
   <main id="main">
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero" id="hero">
       <div class="wrap hero__in">
         <div class="hero__copy">
           <p class="eyebrow">Direct Mill Sourcing · Bulk &amp; Private Label</p>
@@ -193,7 +193,7 @@
               <p class="lead">Planning a processing batch or private-label production run? Calculate raw seed requirement, expected pure oil recovery in litres, and by-product cake tonnage based on proven extraction parameters.</p>
             </div>
             <div class="planner-badge">
-              <span>Standard Mandi &amp; Extraction Model</span>
+              <span>Standard Extraction Benchmark</span>
             </div>
           </div>
 
@@ -228,9 +228,10 @@
               <div class="planner-group">
                 <label for="planMethodSelect">Extraction Method</label>
                 <select id="planMethodSelect" class="planner-field">
-                  <option value="cold">Cold Pressed / Kachi Ghani (~33–35% recovery, premium aroma)</option>
-                  <option value="expeller">Mechanical Expeller (~35–37% recovery, high throughput)</option>
+                  <option value="cold">Cold Pressed / Kachi Ghani (33–35% Oil Yield)</option>
+                  <option value="expeller">Mechanical Expeller (35–37% Oil Yield)</option>
                 </select>
+                <small class="planner-hint">Cold-pressing preserves aroma &amp; natural pungency; mechanical expeller maximizes bulk throughput.</small>
               </div>
 
               <p class="planner-disclaimer">
@@ -368,8 +369,9 @@
         </div>
 
         <form id="quoteForm" class="form" novalidate>
+          <!-- GROUP A: PRODUCT REQUIREMENTS -->
           <fieldset class="lines">
-            <legend>Products you need <span aria-hidden="true">*</span></legend>
+            <legend><span class="form__sec-badge">A</span> Products you need <span aria-hidden="true">*</span></legend>
             <p class="lines__hint">Add every product you want quoted. Set custom volume and packing for each item.</p>
             <div id="lines" class="lines__list"></div>
             
@@ -387,57 +389,70 @@
             <p class="err" id="linesErr" role="alert" hidden></p>
           </fieldset>
 
-          <div class="form__row">
-            <label>Company / Brand Name *<input name="company" required autocomplete="organization"
-                placeholder="e.g. Sunrise Foods Pvt Ltd"></label>
-            <label>Contact Person Name *<input name="name" required autocomplete="name" placeholder="Full name"></label>
-          </div>
-          <div class="form__row">
-            <label>Phone Number (WhatsApp preferred) *<input name="phone" type="tel" required autocomplete="tel" inputmode="tel"
-                placeholder="+91 98765 43210"></label>
-            <label>Business Email *<input name="email" type="email" required autocomplete="email"
-                placeholder="procurement@company.com"></label>
-          </div>
-          <div class="form__row">
-            <label>Business Type *
-              <select name="type" required>
-                <option value="">Select business type…</option>
-                <option>Edible oil brand</option>
-                <option>FMCG company</option>
-                <option>Private-label business</option>
-                <option>Distributor / wholesaler</option>
-                <option>Food manufacturer / processor</option>
-                <option>Animal feed manufacturer</option>
-                <option>Other institutional buyer</option>
-              </select>
+          <!-- GROUP B: BUSINESS INFORMATION -->
+          <fieldset class="form__section">
+            <legend><span class="form__sec-badge">B</span> Business Information</legend>
+            <div class="form__row">
+              <label>Company / Brand Name *<input name="company" required autocomplete="organization"
+                  placeholder="e.g. Sunrise Foods Pvt Ltd"></label>
+              <label>Contact Person Name *<input name="name" required autocomplete="name" placeholder="Full name"></label>
+            </div>
+            <div class="form__row">
+              <label>Phone Number (WhatsApp preferred) *<input name="phone" type="tel" required autocomplete="tel" inputmode="tel"
+                  placeholder="+91 98765 43210"></label>
+              <label>Business Email *<input name="email" type="email" required autocomplete="email"
+                  placeholder="procurement@company.com"></label>
+            </div>
+          </fieldset>
+
+          <!-- GROUP C: COMMERCIAL REQUIREMENTS -->
+          <fieldset class="form__section">
+            <legend><span class="form__sec-badge">C</span> Commercial Requirements</legend>
+            <div class="form__row">
+              <label>Business Type *
+                <select name="type" required>
+                  <option value="">Select business type…</option>
+                  <option>Edible oil brand</option>
+                  <option>FMCG company</option>
+                  <option>Private-label business</option>
+                  <option>Distributor / wholesaler</option>
+                  <option>Food manufacturer / processor</option>
+                  <option>Animal feed manufacturer</option>
+                  <option>Other institutional buyer</option>
+                </select>
+              </label>
+              <label>Requirement Frequency
+                <select name="ordertype">
+                  <option>Monthly contract supply</option>
+                  <option>One-time spot order</option>
+                  <option>Trial batch / Sample lot</option>
+                  <option>Not sure yet, exploring rates</option>
+                </select>
+              </label>
+            </div>
+            <div class="form__row">
+              <label>Delivery Destination (City / State) *<input name="city" required placeholder="e.g. Jaipur, Rajasthan"></label>
+              <label>Own-Brand / Private-Label Packaging?
+                <select name="pl">
+                  <option>No, bulk supply only (tanker / drum)</option>
+                  <option>Yes, custom private-label packing required</option>
+                  <option>Not sure yet, need guidance</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- GROUP D: ADDITIONAL REQUIREMENTS -->
+          <fieldset class="form__section">
+            <legend><span class="form__sec-badge">D</span> Additional Specifications &amp; Samples</legend>
+            <label>Specifications or Special Requirements
+              <textarea name="msg" rows="3"
+                placeholder="Mention required test parameters, target delivery timeline, pack sizes, or statutory documents needed…"></textarea>
             </label>
-            <label>Requirement Frequency
-              <select name="ordertype">
-                <option>Monthly contract supply</option>
-                <option>One-time spot order</option>
-                <option>Trial batch / Sample lot</option>
-                <option>Not sure yet, exploring rates</option>
-              </select>
+            <label class="check">
+              <input type="checkbox" name="sample"> Dispatch physical lab-tested samples for QA approval
             </label>
-          </div>
-          <div class="form__row">
-            <label>Delivery Destination (City / State) *<input name="city" required placeholder="e.g. Jaipur, Rajasthan"></label>
-            <label>Own-Brand / Private-Label Packaging?
-              <select name="pl">
-                <option>No, bulk supply only (tanker / drum)</option>
-                <option>Yes, custom private-label packing required</option>
-                <option>Not sure yet, need guidance</option>
-              </select>
-            </label>
-          </div>
-          <label>Specifications or Special Requirements
-            <textarea name="msg" rows="3"
-              placeholder="Mention required test parameters, target delivery timeline, pack sizes, or statutory documents needed…"></textarea>
-          </label>
-          
-          <label class="check">
-            <input type="checkbox" name="sample"> Dispatch physical lab-tested samples for QA approval
-          </label>
+          </fieldset>
 
           <div class="form__actions">
             <button class="btn btn--primary btn--lg" type="submit">Submit Quotation Request</button>
