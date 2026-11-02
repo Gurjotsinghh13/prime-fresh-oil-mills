@@ -21,33 +21,94 @@
   right: 24px;
   bottom: 24px;
   z-index: 10050;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: transform .2s ease;
+}
+
+.pf-chat-launcher:hover {
+  transform: translateY(-2px);
+}
+
+.pf-chat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 12px;
+  border: 1px solid rgba(224, 170, 50, .45);
+  border-radius: 24px;
+  color: #fff;
+  background: linear-gradient(135deg, #102e20 0%, #173d2b 100%);
+  box-shadow: 0 4px 16px rgba(16, 46, 32, .25);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  animation: pfPillFadeIn .4s cubic-bezier(.16, 1, .3, 1) both;
+  transition: all .2s ease;
+}
+
+.pf-chat-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pf-chat-gold);
+  box-shadow: 0 0 8px rgba(224, 170, 50, .8);
+  animation: pfPulse 2s infinite ease-in-out;
+}
+
+@keyframes pfPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .4; transform: scale(.85); }
+}
+
+@keyframes pfPillFadeIn {
+  from { opacity: 0; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.pf-chat-launcher:hover .pf-chat-pill {
+  border-color: var(--pf-chat-gold);
+  box-shadow: 0 6px 20px rgba(16, 46, 32, .32);
+}
+
+.pf-chat-circle {
   width: 62px;
   height: 62px;
+  flex: 0 0 62px;
   display: grid;
   place-items: center;
-  border: 0;
   border-radius: 50%;
   color: #fff;
   background: var(--pf-chat-green);
   box-shadow: 0 8px 24px rgba(16, 46, 32, .3);
-  cursor: pointer;
-  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+  transition: background .2s ease, box-shadow .2s ease;
 }
 
-.pf-chat-launcher:hover {
+.pf-chat-launcher:hover .pf-chat-circle {
   background: var(--pf-chat-green-dark);
-  transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(16, 46, 32, .35);
 }
 
-.pf-chat-launcher:focus-visible,
+/* When chat panel is open, hide pill label and morph launcher into close button */
+.pf-chat-launcher[aria-expanded="true"] .pf-chat-pill {
+  display: none;
+}
+
+.pf-chat-launcher:focus-visible .pf-chat-circle,
 .pf-chat-panel button:focus-visible,
 .pf-chat-panel input:focus-visible {
   outline: 3px solid var(--pf-chat-gold);
   outline-offset: 3px;
 }
 
-.pf-chat-launcher svg { width: 29px; height: 29px; }
+.pf-chat-circle svg { width: 28px; height: 28px; }
 .pf-chat-launcher[aria-expanded="true"] .pf-chat-icon-open { display: none; }
 .pf-chat-launcher[aria-expanded="false"] .pf-chat-icon-close { display: none; }
 
@@ -350,8 +411,22 @@
   .pf-chat-launcher {
     right: 16px;
     bottom: calc(84px + env(safe-area-inset-bottom));
+    gap: 8px;
+  }
+
+  .pf-chat-circle {
     width: 56px;
     height: 56px;
+    flex: 0 0 56px;
+  }
+  .pf-chat-circle svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .pf-chat-pill {
+    padding: 6px 11px 6px 9px;
+    font-size: 11.5px;
   }
 
   body:has(#tray:not([hidden])) .pf-chat-launcher {
@@ -369,6 +444,19 @@
 
   body:has(#tray:not([hidden])) .pf-chat-panel {
     bottom: calc(212px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 420px) {
+  /* On very compact screens, display a succinct label */
+  .pf-chat-pill-text::after {
+    content: "AI Assistant";
+  }
+  .pf-chat-pill-text {
+    font-size: 0;
+  }
+  .pf-chat-pill-text::after {
+    font-size: 11.5px;
   }
 }
 

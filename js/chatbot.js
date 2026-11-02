@@ -191,7 +191,7 @@
     history = [];
     messages.innerHTML = `
       <div class="pf-chat-message pf-chat-message--assistant">
-        <p>Hello! Welcome to <strong>Prime Fresh Oil Mills</strong>. I can assist you with our product catalog, custom yield calculations, and bulk quotations. How can I assist your business today?</p>
+        <p>Hello! I'm the <strong>Prime Fresh AI Assistant</strong>. I can help you explore our products, understand our offerings, calculate seed yields and connect with our sales team for bulk business enquiries. How can I help you today?</p>
       </div>
     `;
     if (quickActions) {

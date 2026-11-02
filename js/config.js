@@ -9,10 +9,7 @@ window.PFOM = {
     tagline: "Pure Mustard Oil, Seeds & De-oiled Cakes Direct From the Mill",
     phone: "+91 90572 92529",
     phoneRaw: "919057292529",          // digits only, with country code (WhatsApp / tel:)
-    email: "Puneet2garg@gmail.com",
-    address: "Gala No. V1210 to V1221, Ground Floor, Opposite Akshar Business Park, Krushi Wholesale Mart, Plot No. 17-20, APMC, Sector 19 Vashi, Turbhe, Navi Mumbai-400703",
-    addressConfirmed: true,
-    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Krushi+Wholesale+Mart+Sector+19+Vashi+Turbhe+Navi+Mumbai"
+    email: "Puneet2garg@gmail.com"
   },
 
   // Packing options a BUYER can ask for (preference list for B2B procurement)

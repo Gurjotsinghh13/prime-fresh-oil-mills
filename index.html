@@ -538,10 +538,6 @@
           <p class="lead">Connect with our commercial team for contract pricing, sample dispatch, or facility visits.</p>
           <address class="addr">
             <div>
-              <span class="lbl">Trade Office &amp; Wholesale Dispatch</span>
-              <p data-address></p>
-            </div>
-            <div>
               <span class="lbl">Direct Sales Phone</span>
               <p><a data-phone-link href="#"><span data-phone></span></a></p>
             </div>
@@ -552,7 +548,6 @@
           </address>
           <div class="contact__actions">
             <a class="btn btn--primary" href="#quote" data-quote-btn>Request Formal Quote</a>
-            <a class="btn btn--ghost" id="mapLink" href="https://www.google.com/maps/search/?api=1&query=Krushi+Wholesale+Mart+Sector+19+Vashi+Turbhe+Navi+Mumbai" target="_blank" rel="noopener">Open in Google Maps</a>
           </div>
         </div>
         <div class="contact__card">
@@ -592,7 +587,6 @@
         <span class="foot__heading">Contact Desk</span>
         <p class="foot__contact-line">Phone: <a data-phone-link href="#"><span data-phone></span></a></p>
         <p class="foot__contact-line">Email: <a data-email-link href="#"><span data-email></span></a></p>
-        <p class="foot__contact-line">Office: APMC Market, Vashi, Turbhe, Navi Mumbai</p>
       </div>
     </div>
     <div class="wrap foot__bottom">
@@ -622,17 +616,23 @@
     class="pf-chat-launcher"
     id="pfChatLauncher"
     type="button"
-    aria-label="Open Prime Fresh chat assistant"
+    aria-label="Open Prime Fresh AI assistant"
     aria-controls="pfChatPanel"
     aria-expanded="false"
   >
-    <svg class="pf-chat-icon-open" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M8 11.5h.01M12.5 11.5h.01M17 11.5h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-    </svg>
-    <svg class="pf-chat-icon-close" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    </svg>
+    <span class="pf-chat-pill" aria-hidden="true">
+      <span class="pf-chat-pill-dot"></span>
+      <span class="pf-chat-pill-text">AI Assistant – Ask me anything</span>
+    </span>
+    <span class="pf-chat-circle">
+      <svg class="pf-chat-icon-open" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8 11.5h.01M12.5 11.5h.01M17 11.5h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <svg class="pf-chat-icon-close" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </span>
   </button>
 
   <section class="pf-chat-panel" id="pfChatPanel" role="dialog" aria-label="Prime Fresh sales assistant" aria-modal="false" hidden>
@@ -640,7 +640,7 @@
       <div class="pf-chat-brand-mark" aria-hidden="true">P</div>
       <div class="pf-chat-heading">
         <strong>Prime Fresh Assistant</strong>
-        <span>B2B Sales Assistant</span>
+        <span>AI-Powered B2B Sales Assistant</span>
       </div>
       <button class="pf-chat-clear" id="pfChatClear" type="button" aria-label="Restart conversation" title="Restart conversation">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
@@ -650,7 +650,7 @@
 
     <div class="pf-chat-messages" id="pfChatMessages" role="log" aria-live="polite" aria-relevant="additions">
       <div class="pf-chat-message pf-chat-message--assistant">
-        Hello! Welcome to Prime Fresh Oil Mills. I can help you explore our products, understand our offerings and connect with our sales team for bulk business enquiries. How can I assist you today?
+        <p>Hello! I'm the <strong>Prime Fresh AI Assistant</strong>. I can help you explore our products, understand our offerings, calculate seed yields and connect with our sales team for bulk business enquiries. How can I help you today?</p>
       </div>
       <div class="pf-chat-quick-actions" id="pfChatQuickActions">
         <button type="button" data-prompt="I would like to explore your product catalog.">Explore Products</button>

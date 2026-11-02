@@ -10,7 +10,6 @@ export const BUSINESS_KNOWLEDGE = {
     phone: "+91 90572 92529",
     phoneRaw: "919057292529",
     email: "Puneet2garg@gmail.com",
-    address: "Gala No. V1210 to V1221, Ground Floor, Opposite Akshar Business Park, Krushi Wholesale Mart, Plot No. 17-20, APMC, Sector 19 Vashi, Turbhe, Navi Mumbai-400703",
     operatingHours: "Monday to Saturday, 9:00 AM – 7:00 PM IST",
     salesLead: "Puneet Garg / Commercial Desk"
   },
@@ -170,3 +169,4 @@ export const BUSINESS_KNOWLEDGE = {
     "Step 4: Dispatch & Logistics — Dispatches via bulk tankers, sealed drums, or palletized cartons with complete transport documentation."
   ]
 };
+
