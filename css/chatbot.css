@@ -26,9 +26,15 @@
   gap: 10px;
   padding: 0;
   border: 0;
+  outline: none;
   background: transparent;
   cursor: pointer;
   transition: transform .2s ease;
+}
+
+.pf-chat-launcher:focus,
+.pf-chat-launcher:focus-visible {
+  outline: none;
 }
 
 .pf-chat-launcher:hover {

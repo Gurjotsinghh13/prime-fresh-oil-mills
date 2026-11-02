@@ -29,13 +29,13 @@
   let history = [];
   let isSending = false;
 
-  function setOpen(open) {
+  function setOpen(open, shouldFocus = true) {
     panel.hidden = !open;
     launcher.setAttribute('aria-expanded', String(open));
     if (open) {
-      window.setTimeout(() => input.focus(), 30);
+      if (shouldFocus) window.setTimeout(() => input.focus(), 30);
     } else {
-      launcher.focus();
+      if (shouldFocus) launcher.focus();
     }
   }
 
@@ -217,5 +217,5 @@
     sendMessage(button.dataset.prompt || button.textContent);
   });
 
-  setOpen(false);
+  setOpen(false, false);
 })();
