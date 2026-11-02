@@ -393,14 +393,14 @@
           <fieldset class="form__section">
             <legend><span class="form__sec-badge">B</span> Business Information</legend>
             <div class="form__row">
-              <label>Company / Brand Name *<input name="company" required autocomplete="organization"
+              <label>Company / Brand Name&nbsp;<span class="req" aria-hidden="true">*</span><input name="company" required autocomplete="organization"
                   placeholder="e.g. Sunrise Foods Pvt Ltd"></label>
-              <label>Contact Person Name *<input name="name" required autocomplete="name" placeholder="Full name"></label>
+              <label>Contact Person Name&nbsp;<span class="req" aria-hidden="true">*</span><input name="name" required autocomplete="name" placeholder="Full name"></label>
             </div>
             <div class="form__row">
-              <label>Phone Number (WhatsApp preferred) *<input name="phone" type="tel" required autocomplete="tel" inputmode="tel"
+              <label><span class="lbl-wrap">Phone Number <span class="lbl-sub">(WhatsApp preferred)&nbsp;<span class="req" aria-hidden="true">*</span></span></span><input name="phone" type="tel" required autocomplete="tel" inputmode="tel"
                   placeholder="+91 98765 43210"></label>
-              <label>Business Email *<input name="email" type="email" required autocomplete="email"
+              <label>Business Email&nbsp;<span class="req" aria-hidden="true">*</span><input name="email" type="email" required autocomplete="email"
                   placeholder="procurement@company.com"></label>
             </div>
           </fieldset>
@@ -409,7 +409,7 @@
           <fieldset class="form__section">
             <legend><span class="form__sec-badge">C</span> Commercial Requirements</legend>
             <div class="form__row">
-              <label>Business Type *
+              <label>Business Type&nbsp;<span class="req" aria-hidden="true">*</span>
                 <select name="type" required>
                   <option value="">Select business type…</option>
                   <option>Edible oil brand</option>
@@ -431,7 +431,7 @@
               </label>
             </div>
             <div class="form__row">
-              <label>Delivery Destination (City / State) *<input name="city" required placeholder="e.g. Jaipur, Rajasthan"></label>
+              <label>Delivery Destination (City / State)&nbsp;<span class="req" aria-hidden="true">*</span><input name="city" required placeholder="e.g. Jaipur, Rajasthan"></label>
               <label>Own-Brand / Private-Label Packaging?
                 <select name="pl">
                   <option>No, bulk supply only (tanker / drum)</option>
