@@ -1,0 +1,56 @@
+<!-- 1. Add this stylesheet link inside <head>, after the existing site stylesheet. -->
+<link rel="stylesheet" href="css/chatbot.css">
+
+<!-- 2. Add this widget markup near the end of <body>, before the existing script tags. -->
+<button
+  class="pf-chat-launcher"
+  id="pfChatLauncher"
+  type="button"
+  aria-label="Open Prime Fresh chat assistant"
+  aria-controls="pfChatPanel"
+  aria-expanded="false"
+>
+  <svg class="pf-chat-icon-open" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M8 11.5h.01M12.5 11.5h.01M17 11.5h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+  </svg>
+  <svg class="pf-chat-icon-close" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</button>
+
+<section class="pf-chat-panel" id="pfChatPanel" role="dialog" aria-label="Prime Fresh sales assistant" aria-modal="false" hidden>
+  <header class="pf-chat-header">
+    <div class="pf-chat-brand-mark" aria-hidden="true">P</div>
+    <div class="pf-chat-heading">
+      <strong>Prime Fresh Assistant</strong>
+      <span>Product enquiries and bulk quote support</span>
+    </div>
+    <button class="pf-chat-close" id="pfChatClose" type="button" aria-label="Close chat">×</button>
+  </header>
+
+  <div class="pf-chat-messages" id="pfChatMessages" role="log" aria-live="polite" aria-relevant="additions">
+    <div class="pf-chat-message pf-chat-message--assistant">
+      Welcome to Prime Fresh Oil Mills. I can help you explore our products and prepare a bulk enquiry. What would you like to know?
+    </div>
+    <div class="pf-chat-quick-actions" id="pfChatQuickActions">
+      <button type="button" data-prompt="I would like to explore your products.">Explore Products</button>
+      <button type="button" data-prompt="I want to request a bulk quotation. Please guide me.">Request Bulk Quote</button>
+      <button type="button" data-prompt="Can you explain how your oil yield calculation works?">Calculate Yield</button>
+      <button type="button" data-prompt="I am interested in private label or contract manufacturing. Please share the enquiry process.">Private Label</button>
+    </div>
+  </div>
+
+  <form class="pf-chat-composer" id="pfChatForm">
+    <input class="pf-chat-input" id="pfChatInput" type="text" maxlength="2000" autocomplete="off" placeholder="Type your message..." aria-label="Type your message">
+    <button class="pf-chat-send" id="pfChatSend" type="submit" aria-label="Send message">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M21 3 10.5 13.5M21 3l-6.7 18-3.8-7.5L3 9.7 21 3Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </form>
+  <div class="pf-chat-footnote">For confirmed pricing and commercial terms, our sales team will assist you.</div>
+</section>
+
+<!-- 3. Load after the existing config.js and main.js scripts. -->
+<script src="js/chatbot.js" defer></script>

@@ -15,6 +15,7 @@
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css?v=4">
+  <link rel="stylesheet" href="css/chatbot.css">
   <script type="application/ld+json" id="ld-json"></script>
 </head>
 
@@ -616,8 +617,64 @@
     <a href="#" data-wa class="sticky__wa" target="_blank" rel="noopener">WhatsApp</a>
   </div>
 
+  <!-- AI B2B Sales Chatbot -->
+  <button
+    class="pf-chat-launcher"
+    id="pfChatLauncher"
+    type="button"
+    aria-label="Open Prime Fresh chat assistant"
+    aria-controls="pfChatPanel"
+    aria-expanded="false"
+  >
+    <svg class="pf-chat-icon-open" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8 11.5h.01M12.5 11.5h.01M17 11.5h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    </svg>
+    <svg class="pf-chat-icon-close" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <section class="pf-chat-panel" id="pfChatPanel" role="dialog" aria-label="Prime Fresh sales assistant" aria-modal="false" hidden>
+    <header class="pf-chat-header">
+      <div class="pf-chat-brand-mark" aria-hidden="true">P</div>
+      <div class="pf-chat-heading">
+        <strong>Prime Fresh Assistant</strong>
+        <span>B2B Sales Assistant</span>
+      </div>
+      <button class="pf-chat-clear" id="pfChatClear" type="button" aria-label="Restart conversation" title="Restart conversation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      </button>
+      <button class="pf-chat-close" id="pfChatClose" type="button" aria-label="Close chat">×</button>
+    </header>
+
+    <div class="pf-chat-messages" id="pfChatMessages" role="log" aria-live="polite" aria-relevant="additions">
+      <div class="pf-chat-message pf-chat-message--assistant">
+        Hello! Welcome to Prime Fresh Oil Mills. I can help you explore our products, understand our offerings and connect with our sales team for bulk business enquiries. How can I assist you today?
+      </div>
+      <div class="pf-chat-quick-actions" id="pfChatQuickActions">
+        <button type="button" data-prompt="I would like to explore your product catalog.">Explore Products</button>
+        <button type="button" data-prompt="I want to request a bulk quotation. Please guide me.">Request Bulk Quote</button>
+        <button type="button" data-prompt="I am interested in private label packaging. What are the options?">Private Label Enquiry</button>
+        <button type="button" data-prompt="How does your bulk seed and oil yield calculation work?">Calculate Yield</button>
+        <button type="button" data-prompt="Please connect me with your sales team or share contact details.">Contact Sales</button>
+      </div>
+    </div>
+
+    <form class="pf-chat-composer" id="pfChatForm">
+      <input class="pf-chat-input" id="pfChatInput" type="text" maxlength="2000" autocomplete="off" placeholder="Type your message..." aria-label="Type your message">
+      <button class="pf-chat-send" id="pfChatSend" type="submit" aria-label="Send message">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 3 10.5 13.5M21 3l-6.7 18-3.8-7.5L3 9.7 21 3Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </form>
+    <div class="pf-chat-footnote">For confirmed pricing and commercial terms, our sales team will assist you.</div>
+  </section>
+
   <script src="js/config.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/chatbot.js" defer></script>
 </body>
 
 </html>

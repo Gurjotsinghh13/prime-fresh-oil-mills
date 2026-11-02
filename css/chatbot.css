@@ -1,0 +1,280 @@
+/* Prime Fresh Oil Mills chatbot widget. Kept separate from the main site stylesheet. */
+:root {
+  --pf-chat-green: #173d2b;
+  --pf-chat-green-dark: #102e20;
+  --pf-chat-gold: #e0aa32;
+  --pf-chat-cream: #fbf8f0;
+  --pf-chat-ink: #202820;
+  --pf-chat-muted: #6f786f;
+  --pf-chat-border: #e7e8e1;
+  --pf-chat-shadow: 0 18px 55px rgba(20, 40, 26, .22);
+}
+
+.pf-chat-launcher,
+.pf-chat-panel,
+.pf-chat-panel * {
+  box-sizing: border-box;
+}
+
+.pf-chat-launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10050;
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--pf-chat-green);
+  box-shadow: 0 8px 24px rgba(16, 46, 32, .3);
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.pf-chat-launcher:hover {
+  background: var(--pf-chat-green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(16, 46, 32, .35);
+}
+
+.pf-chat-launcher:focus-visible,
+.pf-chat-panel button:focus-visible,
+.pf-chat-panel input:focus-visible {
+  outline: 3px solid var(--pf-chat-gold);
+  outline-offset: 3px;
+}
+
+.pf-chat-launcher svg { width: 29px; height: 29px; }
+.pf-chat-launcher[aria-expanded="true"] .pf-chat-icon-open { display: none; }
+.pf-chat-launcher[aria-expanded="false"] .pf-chat-icon-close { display: none; }
+
+.pf-chat-panel {
+  position: fixed;
+  right: 24px;
+  bottom: 100px;
+  z-index: 10049;
+  width: min(390px, calc(100vw - 32px));
+  height: min(590px, calc(100dvh - 130px));
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(23, 61, 43, .12);
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: var(--pf-chat-shadow);
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transform-origin: bottom right;
+  transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+}
+
+.pf-chat-panel[hidden] {
+  display: flex;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(10px) scale(.98);
+}
+
+.pf-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 17px 17px 15px;
+  color: #fff;
+  background: var(--pf-chat-green);
+}
+
+.pf-chat-brand-mark {
+  width: 39px;
+  height: 39px;
+  flex: 0 0 39px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: var(--pf-chat-green-dark);
+  background: var(--pf-chat-gold);
+  font-family: Georgia, serif;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.pf-chat-heading { min-width: 0; flex: 1; }
+.pf-chat-heading strong { display: block; font-size: 15px; line-height: 1.3; }
+.pf-chat-heading span { display: block; margin-top: 3px; color: rgba(255,255,255,.78); font-size: 11px; }
+
+.pf-chat-clear {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, .82);
+  background: rgba(255, 255, 255, .12);
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease;
+}
+.pf-chat-clear:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, .22);
+}
+
+.pf-chat-close {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255,255,255,.12);
+  cursor: pointer;
+  font-size: 21px;
+  line-height: 1;
+}
+
+.pf-chat-messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 17px 14px 12px;
+  background: var(--pf-chat-cream);
+  overscroll-behavior: contain;
+}
+
+.pf-chat-message {
+  width: fit-content;
+  max-width: 88%;
+  margin: 0 0 11px;
+  padding: 10px 12px;
+  border: 1px solid var(--pf-chat-border);
+  border-radius: 13px 13px 13px 4px;
+  color: var(--pf-chat-ink);
+  background: #fff;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.pf-chat-message--user {
+  margin-left: auto;
+  border-color: var(--pf-chat-green);
+  border-radius: 13px 13px 4px 13px;
+  color: #fff;
+  background: var(--pf-chat-green);
+}
+
+.pf-chat-message--status {
+  border-style: dashed;
+  color: var(--pf-chat-muted);
+  background: #fffdf8;
+  font-size: 12px;
+}
+
+.pf-chat-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 2px 0 13px;
+}
+
+.pf-chat-quick-actions button {
+  padding: 8px 10px;
+  border: 1px solid rgba(23, 61, 43, .24);
+  border-radius: 18px;
+  color: var(--pf-chat-green);
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  transition: background .15s ease, border-color .15s ease;
+}
+
+.pf-chat-quick-actions button:hover {
+  border-color: var(--pf-chat-green);
+  background: #f1f5ef;
+}
+
+.pf-chat-composer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid var(--pf-chat-border);
+  background: #fff;
+}
+
+.pf-chat-input {
+  min-width: 0;
+  flex: 1;
+  height: 43px;
+  padding: 0 13px;
+  border: 1px solid #dfe3dc;
+  border-radius: 22px;
+  color: var(--pf-chat-ink);
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+}
+
+.pf-chat-input::placeholder { color: #929a91; }
+
+.pf-chat-send {
+  width: 43px;
+  height: 43px;
+  flex: 0 0 43px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--pf-chat-green);
+  cursor: pointer;
+}
+
+.pf-chat-send:disabled { opacity: .55; cursor: wait; }
+.pf-chat-send svg { width: 18px; height: 18px; }
+.pf-chat-footnote {
+  padding: 0 12px 10px;
+  color: var(--pf-chat-muted);
+  background: #fff;
+  text-align: center;
+  font-size: 10px;
+}
+
+@media (max-width: 640px) {
+  .pf-chat-launcher {
+    right: 16px;
+    bottom: calc(84px + env(safe-area-inset-bottom));
+    width: 56px;
+    height: 56px;
+  }
+
+  body:has(#tray:not([hidden])) .pf-chat-launcher {
+    bottom: calc(146px + env(safe-area-inset-bottom));
+  }
+
+  .pf-chat-panel {
+    right: 12px;
+    bottom: calc(151px + env(safe-area-inset-bottom));
+    width: calc(100vw - 24px);
+    height: min(560px, calc(100dvh - 180px - env(safe-area-inset-bottom)));
+    min-height: 360px;
+    border-radius: 17px;
+  }
+
+  body:has(#tray:not([hidden])) .pf-chat-panel {
+    bottom: calc(212px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-chat-launcher,
+  .pf-chat-panel { transition: none; }
+}

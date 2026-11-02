@@ -1465,8 +1465,8 @@ summary::-webkit-details-marker{display:none}
 /* FLOATING TRAY */
 .tray{
   position:fixed;
-  right:1.25rem;
-  bottom:1.25rem;
+  right:96px;
+  bottom:24px;
   z-index:55;
 }
 .tray__btn{
