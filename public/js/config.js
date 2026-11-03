@@ -12,7 +12,7 @@ window.PFOM = {
     email: "Puneet2garg@gmail.com",
     // In production, configure this if backend is deployed on a standalone subdomain/service (e.g. "https://api.primefreshoilmills.com")
     // If hosted together or via reverse proxy, leave as null to use relative path "/api/chat"
-    apiBaseUrl: null
+    apiBaseUrl: "https://prime-fresh-api.onrender.com"
   },
 
   // Packing options a BUYER can ask for (preference list for B2B procurement)
