@@ -154,12 +154,17 @@
     setBusy(true);
     const pending = addMessage('Please wait while I prepare a response...', 'status');
 
+    const controller = new AbortController();
+    const timeoutTimer = setTimeout(() => controller.abort(), 24000);
+
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, history: history.slice(0, -1) })
+        body: JSON.stringify({ message, history: history.slice(0, -1) }),
+        signal: controller.signal
       });
+      clearTimeout(timeoutTimer);
 
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
@@ -173,11 +178,13 @@
       addMessage(data.reply.trim(), 'assistant');
       addHistory('assistant', data.reply.trim());
     } catch (error) {
+      clearTimeout(timeoutTimer);
       pending.remove();
-      addMessage(
-        `The assistant is not connected right now. Please contact the Prime Fresh sales team at ${SALES_PHONE} or use the website's WhatsApp option.`,
-        'status'
-      );
+      const isTimeout = error.name === 'AbortError';
+      const fallbackMsg = isTimeout
+        ? `The AI request took longer than expected to process. Please try again or reach our sales team directly at ${SALES_PHONE} or via WhatsApp at https://wa.me/919057292529.`
+        : `Sorry, our AI Assistant is temporarily unavailable. Please try again in a moment or contact our sales team directly at ${SALES_PHONE} or via WhatsApp at https://wa.me/919057292529.`;
+      addMessage(fallbackMsg, 'status');
       console.error('[Prime Fresh Chatbot]', error);
     } finally {
       setBusy(false);

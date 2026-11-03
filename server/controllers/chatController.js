@@ -35,14 +35,23 @@ export async function handleChat(req, res) {
     const errorMsg = String(error?.message || '');
     if (errorMsg.includes('429') || errorMsg.includes('quota') || errorMsg.includes('ResourceExhausted')) {
       return res.status(429).json({
-        error: 'The AI assistant is receiving unusually high trade volume right now. Please reach our commercial desk directly via WhatsApp at +91 90572 92529.',
-        code: 'RATE_LIMITED'
+        error: 'Our AI Assistant is receiving high trade inquiry volume right now. Please reach our commercial desk directly via WhatsApp at +91 90572 92529 or phone.',
+        code: 'RATE_LIMITED',
+        fallback: {
+          phone: '+91 90572 92529',
+          whatsapp: 'https://wa.me/919057292529'
+        }
       });
     }
 
-    console.error('[ChatController Error]:', error);
+    console.error('[ChatController Error]:', errorMsg);
     return res.status(500).json({
-      error: 'We encountered an error processing your enquiry. Please reach our sales team directly at +91 90572 92529 or try again shortly.'
+      error: 'Sorry, our AI Assistant is temporarily unavailable. Please try again in a moment or contact our sales team directly at +91 90572 92529 or via WhatsApp.',
+      code: 'API_ERROR',
+      fallback: {
+        phone: '+91 90572 92529',
+        whatsapp: 'https://wa.me/919057292529'
+      }
     });
   }
 }
@@ -52,9 +61,8 @@ export function handleHealth(req, res) {
   return res.status(200).json({
     status: 'ok',
     service: 'Prime Fresh Oil Mills Chatbot API',
-    model: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
+    model: process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite',
     geminiConfigured: hasKey,
     timestamp: new Date().toISOString()
   });
 }
-

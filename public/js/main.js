@@ -177,6 +177,7 @@
     if (trayLabel) trayLabel.textContent = n === 1 ? "1 product staged" : n + " products staged";
     if (tray) {
       tray.hidden = n === 0 || quoteInView;
+      document.body.classList.toggle("has-tray", !tray.hidden);
       if (pulse && n) {
         tray.classList.remove("pulse");
         void tray.offsetWidth;
@@ -190,7 +191,10 @@
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (en) {
       quoteInView = en[0].isIntersecting;
-      if (tray) tray.hidden = lines.length === 0 || quoteInView;
+      if (tray) {
+        tray.hidden = lines.length === 0 || quoteInView;
+        document.body.classList.toggle("has-tray", !tray.hidden);
+      }
     }, { threshold: 0.12 }).observe($("#quote"));
   }
 
