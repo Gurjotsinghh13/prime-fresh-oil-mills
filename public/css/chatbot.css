@@ -94,7 +94,22 @@
   color: #fff;
   background: var(--pf-chat-green);
   box-shadow: 0 8px 24px rgba(16, 46, 32, .3);
+  position: relative;
   transition: background .2s ease, box-shadow .2s ease;
+}
+
+.pf-chat-circle-dot {
+  display: none;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--pf-chat-gold);
+  border: 2px solid var(--pf-chat-green);
+  box-shadow: 0 0 8px rgba(224, 170, 50, .9);
+  animation: pfPulse 2s infinite ease-in-out;
 }
 
 .pf-chat-launcher:hover .pf-chat-circle {
@@ -414,55 +429,100 @@
 }
 
 @media (max-width: 640px) {
+  /* On mobile screens, hide the bulky horizontal text pill to prevent content overlap */
+  .pf-chat-pill {
+    display: none !important;
+  }
+
+  .pf-chat-circle-dot {
+    display: block;
+  }
+
   .pf-chat-launcher {
-    right: 16px;
-    bottom: calc(84px + env(safe-area-inset-bottom));
-    gap: 8px;
+    right: 14px;
+    bottom: calc(56px + env(safe-area-inset-bottom, 0px) + 8px);
+    gap: 0;
+    z-index: 10050;
   }
 
   .pf-chat-circle {
-    width: 56px;
-    height: 56px;
-    flex: 0 0 56px;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    box-shadow: 0 6px 18px rgba(16, 46, 32, .32);
   }
   .pf-chat-circle svg {
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
   }
 
-  .pf-chat-pill {
-    padding: 6px 11px 6px 9px;
-    font-size: 11.5px;
-  }
-
+  /* When quote tray is visible on mobile, stay anchored beside it */
   body:has(#tray:not([hidden])) .pf-chat-launcher {
-    bottom: calc(146px + env(safe-area-inset-bottom));
+    bottom: calc(56px + env(safe-area-inset-bottom, 0px) + 8px);
   }
 
   .pf-chat-panel {
-    right: 12px;
-    bottom: calc(151px + env(safe-area-inset-bottom));
-    width: calc(100vw - 24px);
-    height: min(560px, calc(100dvh - 180px - env(safe-area-inset-bottom)));
-    min-height: 360px;
-    border-radius: 17px;
+    right: 8px;
+    left: 8px;
+    width: auto;
+    max-width: calc(100vw - 16px);
+    bottom: calc(56px + env(safe-area-inset-bottom, 0px) + 6px);
+    height: calc(100dvh - 76px - env(safe-area-inset-bottom, 0px));
+    max-height: 550px;
+    min-height: 340px;
+    border-radius: 16px;
+    z-index: 10049;
   }
 
   body:has(#tray:not([hidden])) .pf-chat-panel {
-    bottom: calc(212px + env(safe-area-inset-bottom));
+    bottom: calc(56px + env(safe-area-inset-bottom, 0px) + 6px);
   }
-}
 
-@media (max-width: 420px) {
-  /* On very compact screens, display a succinct label */
-  .pf-chat-pill-text::after {
-    content: "AI Assistant";
+  .pf-chat-header {
+    padding: 12px 14px 11px;
+    gap: 9px;
   }
-  .pf-chat-pill-text {
-    font-size: 0;
+  .pf-chat-brand-mark {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    font-size: 17px;
+    border-radius: 8px;
   }
-  .pf-chat-pill-text::after {
-    font-size: 11.5px;
+  .pf-chat-heading strong {
+    font-size: 14px;
+  }
+  .pf-chat-heading span {
+    font-size: 10.5px;
+  }
+  .pf-chat-messages {
+    padding: 12px 10px;
+  }
+  .pf-chat-message {
+    max-width: 92%;
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.48;
+    border-radius: 12px 12px 12px 4px;
+    margin-bottom: 9px;
+  }
+  .pf-chat-form {
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+    gap: 8px;
+  }
+  .pf-chat-input {
+    height: 40px;
+    font-size: 13.5px;
+    padding: 0 12px;
+  }
+  .pf-chat-send {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+  }
+  .pf-chat-footnote {
+    padding: 0 10px 6px;
+    font-size: 9.5px;
   }
 }
 
