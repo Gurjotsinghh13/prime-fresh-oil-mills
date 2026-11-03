@@ -1,0 +1,21 @@
+# Netlify Configuration for Prime Fresh Oil Mills Frontend
+
+[build]
+  # Directory to deploy (contains index.html, css, js, assets)
+  publish = "public"
+  # No build command needed for static HTML/CSS/vanilla JS
+  command = ""
+
+# Security & Cache Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
