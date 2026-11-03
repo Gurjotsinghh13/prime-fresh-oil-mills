@@ -6,6 +6,13 @@
   # No build command needed for static HTML/CSS/vanilla JS
   command = ""
 
+# API Proxy to Render Backend
+[[redirects]]
+  from = "/api/*"
+  to = "https://prime-fresh-oil-mills.onrender.com/api/:splat"
+  status = 200
+  force = true
+
 # Security & Cache Headers
 [[headers]]
   for = "/*"
@@ -19,4 +26,3 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-

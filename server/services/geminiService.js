@@ -22,7 +22,7 @@ function getAIClient() {
 export async function generateChatResponse(message, history = []) {
   const ai = getAIClient();
   const primaryModel = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
-  const fallbackModels = ['gemini-3.5-flash', 'gemini-3.1-flash-lite', 'gemini-3-flash-preview', 'gemini-3.8-flash'];
+  const fallbackModels = ['gemini-3.5-flash-lite', 'gemini-3.5-flash', 'gemini-flash-lite-latest', 'gemini-3.8-flash'];
   const systemInstruction = getSystemInstruction();
 
   // Map sliding window history to Gemini format

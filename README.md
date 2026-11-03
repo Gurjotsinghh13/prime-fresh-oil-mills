@@ -93,7 +93,7 @@ To run the complete system locally:
 2. Click **New +** → **Web Service**.
 3. Connect your Git repository.
 4. Configure the Web Service settings:
-   - **Name:** `prime-fresh-api` (or your preferred name)
+   - **Name:** `prime-fresh-oil-mills` (or your preferred name)
    - **Root Directory:** `server` *(Important: sets context to the backend folder)*
    - **Runtime:** `Node`
    - **Build Command:** `npm install`
@@ -103,29 +103,28 @@ To run the complete system locally:
    | Key | Value | Description |
    | :--- | :--- | :--- |
    | `GEMINI_API_KEY` | `<your-google-gemini-api-key>` | Obtained from Google AI Studio |
-   | `GEMINI_MODEL` | `gemini-2.5-flash` | Fast, accurate model for B2B inquiries |
-   | `ALLOWED_ORIGIN` | `https://your-site.netlify.app` | Your frontend production URL(s) |
+   | `GEMINI_MODEL` | `gemini-3.5-flash-lite` | Supported model for B2B inquiries |
+   | `ALLOWED_ORIGIN` | `https://prime-fresh-oil.netlify.app` | Your frontend production URL(s) |
    | `NODE_ENV` | `production` | Enables strict CORS and security settings |
 6. Click **Deploy Web Service**.
-7. Once deployment finishes, copy your Render service URL (e.g., `https://prime-fresh-api.onrender.com`).
+7. Once deployment finishes, copy your Render service URL (e.g., `https://prime-fresh-oil-mills.onrender.com`).
 8. Verify backend health in browser or curl:
    ```bash
-   curl https://prime-fresh-api.onrender.com/api/health
+   curl https://prime-fresh-oil-mills.onrender.com/api/health
    ```
-   Expected response: `{"status":"ok","model":"gemini-2.5-flash","geminiConfigured":true}`
+   Expected response: `{"status":"ok","model":"gemini-3.5-flash-lite","geminiConfigured":true}`
 
 ---
 
 ### Phase 2: Deploy Frontend to Netlify
 
 1. Log in to your [Netlify Dashboard](https://app.netlify.com/).
-2. Click **Add new site** → **Import an existing project**.
-3. Select your Git repository.
-4. Netlify will automatically detect settings from `netlify.toml`:
+2. Click **Add new site** → **Import an existing project** (or drag the `public/` folder into Netlify Drop).
+3. If importing via Git, Netlify will automatically detect settings from `netlify.toml`:
    - **Base directory:** *(Leave blank / root)*
    - **Build command:** *(Leave blank)*
    - **Publish directory:** `public`
-5. Connect Frontend to your Render Backend:
+4. Connect Frontend to your Render Backend:
    - **Option A (Direct Service URL - Recommended):**
      In `public/js/config.js`, set `apiBaseUrl` to your Render URL:
      ```javascript
@@ -133,21 +132,21 @@ To run the complete system locally:
        business: {
          name: "Prime Fresh Oil Mills",
          // ...
-         apiBaseUrl: "https://prime-fresh-api.onrender.com"
+         apiBaseUrl: "https://prime-fresh-oil-mills.onrender.com"
        }
      };
      ```
    - **Option B (Netlify Rewrite Proxy):**
-     If you prefer proxying `/api/*` through Netlify without changing `config.js`, add this to `netlify.toml`:
+     If you prefer proxying `/api/*` through Netlify without changing `config.js`, `public/_redirects` and `netlify.toml` automatically proxy requests:
      ```toml
      [[redirects]]
        from = "/api/*"
-       to = "https://prime-fresh-api.onrender.com/api/:splat"
+       to = "https://prime-fresh-oil-mills.onrender.com/api/:splat"
        status = 200
        force = true
      ```
 6. Click **Deploy Site**.
-7. Once deployed, copy your Netlify URL (e.g. `https://prime-fresh-oil-mills.netlify.app`) and ensure it is listed in the Render backend's `ALLOWED_ORIGIN` environment variable.
+7. Once deployed, verify your Netlify URL (e.g. `https://prime-fresh-oil.netlify.app`).
 
 ---
 

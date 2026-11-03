@@ -14,7 +14,9 @@ const allowedOrigins = [
   'http://localhost:8000',
   'http://127.0.0.1:8000',
   'http://localhost:3000',
-  'http://127.0.0.1:3000'
+  'http://127.0.0.1:3000',
+  'https://prime-fresh-oil.netlify.app',
+  'https://prime-fresh-oil-mills.netlify.app'
 ];
 
 if (process.env.ALLOWED_ORIGIN) {
@@ -29,7 +31,7 @@ app.use(cors({
     // Allow requests with no origin (like mobile apps, curl, server-to-server, or same-origin)
     if (!origin) return callback(null, true);
 
-    const isExplicitlyAllowed = allowedOrigins.includes(origin);
+    const isExplicitlyAllowed = allowedOrigins.includes(origin) || origin.endsWith('.netlify.app');
     const isLocalhost = origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:');
 
     if (isExplicitlyAllowed || (!isProduction && isLocalhost)) {
